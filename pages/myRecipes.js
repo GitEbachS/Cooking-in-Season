@@ -2,27 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
+import { privateRecipes } from '../api/recipeData';
 import RecipeCard from '../components/RecipeCard';
-import { getAllMemberRecipes } from '../api/recipeData';
 
-function AllRecipes() {
+function PersonalRecipes() {
   const [recipes, setRecipes] = useState([]);
   const { user } = useAuth();
 
-  const getAllTheRecipes = () => {
-    getAllMemberRecipes().then(setRecipes);
+  const getMyRecipes = () => {
+    privateRecipes(user.uid).then(setRecipes);
   };
 
   useEffect(() => {
-    getAllTheRecipes();
+    getMyRecipes();
   }, [user]);
 
   return (
     <div className="text-center my-4">
-      <h1>RECIPES</h1>
+      <h1>MY RECIPES</h1>
       <div className="d-flex flex-wrap">
         {recipes.map((recipe) => (
-          <RecipeCard key={recipe.firebaseKey} recipeObj={recipe} onUpdate={getAllTheRecipes} />
+          <RecipeCard key={recipe.firebaseKey} recipeObj={recipe} onUpdate={getMyRecipes} />
         ))}
 
       </div>
@@ -32,4 +32,4 @@ function AllRecipes() {
     </div>
   );
 }
-export default AllRecipes;
+export default PersonalRecipes;
