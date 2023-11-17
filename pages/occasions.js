@@ -6,16 +6,19 @@ import { useAuth } from '../utils/context/authContext';
 import RecipeCard from '../components/RecipeCard';
 import { getAllMemberRecipes } from '../api/recipeData';
 
-function AllRecipes() {
-  const [recipes, setRecipes] = useState([]);
+function OccasionRecipes() {
+  const [occasions, setOccasions] = useState([]);
   const { user } = useAuth();
 
-  const getAllTheRecipes = () => {
-    getAllMemberRecipes().then(setRecipes);
+  const getTheOccasions = () => {
+    getAllMemberRecipes().then((allRecipes) => {
+      const filteredOccasion = allRecipes.filter((allRecipe) => allRecipe.type === 'Occasions');
+      setOccasions(filteredOccasion);
+    });
   };
 
   useEffect(() => {
-    getAllTheRecipes();
+    getTheOccasions();
   }, [user]);
 
   return (
@@ -37,8 +40,8 @@ function AllRecipes() {
         </Button>
       </Link>
       <div className="d-flex flex-wrap">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.firebaseKey} recipeObj={recipe} onUpdate={getAllTheRecipes} />
+        {occasions.map((occasion) => (
+          <RecipeCard key={occasion.firebaseKey} recipeObj={occasion} onUpdate={getTheOccasions} />
         ))}
 
       </div>
@@ -48,4 +51,4 @@ function AllRecipes() {
     </div>
   );
 }
-export default AllRecipes;
+export default OccasionRecipes;

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
-import Link from 'next/link';
 import { useAuth } from '../../utils/context/authContext';
 import { createRecipe, updateRecipe } from '../../api/recipeData';
 
@@ -44,7 +43,7 @@ function RecipeForm({ recipeObj }) {
       const payload = { ...formInput, uid: user.uid };
       createRecipe(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
-        updateRecipe(patchPayload).then(() => router.push(`/recipe/${recipeObj.firebaseKey}`));
+        updateRecipe(patchPayload)?.then(() => router.push(`/instruction/add/${name}`));
       });
     }
   };
@@ -148,11 +147,20 @@ function RecipeForm({ recipeObj }) {
           <option>Occasions</option>
         </Form.Select>
       </FloatingLabel>
+      <FloatingLabel controlId="floatingTextarea" label="Ingredients" className="mb-3">
+        <Form.Control
+          as="textarea"
+          placeholder="Ingredients"
+          style={{ height: '100px' }}
+          name="ingredients"
+          value={formInput.ingredients}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel>
 
       {/* SUBMIT BUTTON  */}
-      <Link passHref href="/instruction/new">
-        <Button type="submit">{recipeObj.firebaseKey ? 'Update' : 'Create'} Recipe</Button>
-      </Link>
+      <Button type="submit">{recipeObj.firebaseKey ? 'Update' : 'Create'} Recipe</Button>
     </Form>
   );
 }
