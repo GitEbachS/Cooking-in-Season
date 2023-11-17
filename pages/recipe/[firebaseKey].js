@@ -5,22 +5,30 @@ import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 import { viewRecipeDetails } from '../../api/mergedData';
 import InstructionCard from '../../components/InstructionCard';
+import { getRecipeNotes } from '../../api/noteData';
+import NoteCard from '../../components/NoteCard';
+import { useAuth } from '../../utils/context/authContext';
 
 export default function ViewRecipe() {
+  const { user } = useAuth();
   const [recipeDetails, setRecipeDetails] = useState({});
-  // const [instruction, setInstruction] = useState({});
+  const [recipeNotes, setRecipeNotes] = useState([]);
   const router = useRouter();
 
   const { firebaseKey } = router.query;
 
-  const getRDetails = () => {
-    viewRecipeDetails(firebaseKey).then(setRecipeDetails);
+  const getRDetails = async () => {
+    const recipeInstructionArray = await viewRecipeDetails(firebaseKey);
+    const noteData = await getRecipeNotes(user.uid, firebaseKey);
+    // const privateRecipesArray = await privateRecipes(uid);
+    setRecipeDetails(recipeInstructionArray);
+    setRecipeNotes(noteData);
   };
 
   useEffect(() => {
     getRDetails();
-  }, []);
-
+  }, [firebaseKey]);
+  console.warn(recipeNotes);
   return (
     <>
       <div className="mt-5 d-flex flex-wrap">
@@ -29,20 +37,15 @@ export default function ViewRecipe() {
         </div>
         <div className="text-white ms-5 details">
           <h1>{recipeDetails.name}</h1>
+          <Link href={`/recipe/edit/${recipeDetails.firebaseKey}`} passHref>
+            <Button className="editBtn m-2" variant="info">EDIT</Button>
+          </Link>
           <p className="card-text bold">{recipeDetails.isPrivate ? ' Private' : 'Public'}</p>
           <p className="card-text bold">{recipeDetails.author}</p>
           <p className="card-text bold">{recipeDetails.season}</p>
           <p className="card-text bold">{recipeDetails.ingredients}</p>
           <p className="card-text bold">{recipeDetails.description}</p>
           <p className="card-text bold">{recipeDetails.type}</p>
-          <div className="wrapper">
-            <Link href={`/recipe/${recipeDetails.firebaseKey}`} passHref>
-              <Button variant="primary" className="viewBtn m-2">VIEW</Button>
-            </Link>
-            <Link href={`/recipe/edit/${recipeDetails.firebaseKey}`} passHref>
-              <Button className="editBtn m-2" variant="info">EDIT</Button>
-            </Link>
-          </div>
         </div>
       </div>
 
@@ -50,6 +53,22 @@ export default function ViewRecipe() {
         <InstructionCard key={instruction.firebaseKey} instructionObj={instruction} onUpdate={getRDetails} />
       ))}
       </div>
+      {recipeDetails.isPrivate ? (
+        <div>{recipeNotes?.map((recipeNote) => (
+          <NoteCard key={recipeNote.firebaseKey} noteObj={recipeNote} onUpdate={getRDetails} />
+        ))}
+        </div>
+      ) : ''}
+      {recipeDetails.isPrivate ? (
+        <div>
+          <Link passHref href={`/note/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" variant="outline-success">ADD NOTE</Button>
+          </Link>
+        </div>
+      ) : ''}
+
+      <Link passHref href="/myRecipes">
+        <Button className="editBtn m-2" variant="outline-success">BACK</Button>
+      </Link>
     </>
   );
 }

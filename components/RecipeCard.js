@@ -18,10 +18,16 @@ function RecipeCard({ recipeObj, onUpdate }) {
       updateRecipe(patchPayload).then(() => onUpdate());
     }
   };
+  const removeFromList = () => {
+    if (recipeObj.firebaseKey) {
+      const patchPayload = { firebaseKey: recipeObj.firebaseKey, isPrivate: false };
+      updateRecipe(patchPayload).then(() => onUpdate());
+    }
+  };
 
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
-      {recipeObj.isPrivate ? '' : <Button type="button" onClick={addToList} className="editBtn m-2" variant="info">ADD TO LIST</Button>}
+      {recipeObj.isPrivate ? <Button type="button" onClick={removeFromList} className="editBtn m-2" variant="outline-info">REMOVE FROM LIST</Button> : <Button type="button" onClick={addToList} className="editBtn m-2" variant="outline-success">ADD TO LIST</Button>}
       <Card.Img variant="top" src={recipeObj.image} alt={recipeObj.name} style={{ height: '350px' }} />
       <Card.Body>
         <Card.Title>{recipeObj.name}</Card.Title>

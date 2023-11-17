@@ -6,16 +6,19 @@ import { useAuth } from '../utils/context/authContext';
 import RecipeCard from '../components/RecipeCard';
 import { getAllMemberRecipes } from '../api/recipeData';
 
-function AllRecipes() {
-  const [recipes, setRecipes] = useState([]);
+function MealRecipes() {
+  const [meals, setMeals] = useState([]);
   const { user } = useAuth();
 
-  const getAllTheRecipes = () => {
-    getAllMemberRecipes().then(setRecipes);
+  const getTheMeals = () => {
+    getAllMemberRecipes().then((allRecipes) => {
+      const filteredMeal = allRecipes.filter((allRecipe) => allRecipe.type === 'Meals');
+      setMeals(filteredMeal);
+    });
   };
 
   useEffect(() => {
-    getAllTheRecipes();
+    getTheMeals();
   }, [user]);
 
   return (
@@ -37,8 +40,8 @@ function AllRecipes() {
         </Button>
       </Link>
       <div className="d-flex flex-wrap">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.firebaseKey} recipeObj={recipe} onUpdate={getAllTheRecipes} />
+        {meals.map((meal) => (
+          <RecipeCard key={meal.firebaseKey} recipeObj={meal} onUpdate={getTheMeals} />
         ))}
 
       </div>
@@ -48,4 +51,4 @@ function AllRecipes() {
     </div>
   );
 }
-export default AllRecipes;
+export default MealRecipes;

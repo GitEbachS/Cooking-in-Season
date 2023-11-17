@@ -6,25 +6,24 @@ import { useAuth } from '../utils/context/authContext';
 import { privateRecipes } from '../api/recipeData';
 import RecipeCard from '../components/RecipeCard';
 
-function PersonalRecipes() {
-  const [recipes, setRecipes] = useState([]);
+function FilteredWinterRecipes() {
+  const [winterRecipes, setWinterRecipes] = useState([]);
   const { user } = useAuth();
 
-  const getMyRecipes = () => {
-    privateRecipes(user.uid).then(setRecipes);
+  const getWRecipes = () => {
+    privateRecipes(user.uid).then((privateItems) => {
+      const filteredWinter = privateItems.filter((privateItem) => privateItem.season === 'Winter');
+      setWinterRecipes(filteredWinter);
+    });
   };
 
-  // const filteredFall = () => {
-  //   recipes.filter((recipe) => recipe.season === 'fall');
-  // };
-
   useEffect(() => {
-    getMyRecipes();
+    getWRecipes();
   }, [user]);
 
   return (
     <div className="text-center my-4">
-      <h1>MY RECIPES</h1>
+      <h1>WINTER RECIPES</h1>
       <div>
         <Link passHref href="/fall">
           <Button variant="outline-secondary" type="button" size="sm" className="copy-btn">
@@ -48,8 +47,8 @@ function PersonalRecipes() {
         </Link>
       </div>
       <div className="d-flex flex-wrap">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.firebaseKey} recipeObj={recipe} onUpdate={getMyRecipes} />
+        {winterRecipes.map((winterRecipe) => (
+          <RecipeCard key={winterRecipe.firebaseKey} recipeObj={winterRecipe} onUpdate={getWRecipes} />
         ))}
 
       </div>
@@ -59,4 +58,4 @@ function PersonalRecipes() {
     </div>
   );
 }
-export default PersonalRecipes;
+export default FilteredWinterRecipes;

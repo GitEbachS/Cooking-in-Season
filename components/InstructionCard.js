@@ -14,7 +14,7 @@ function InstructionCard({ instructionObj, onUpdate }) {
 
   return (
     <div>
-      <Card.Title>Instructions</Card.Title>
+      <Card.Title>{instructionObj.step > 1 ? '' : 'Instructions'}</Card.Title>
       <p className="card-text bold">Step {instructionObj.step}:</p>
       <p className="card-text bold">{instructionObj.instruction}</p>
       <Link href={`/instruction/edit/${instructionObj.firebaseKey}`} passHref>
@@ -30,7 +30,7 @@ function InstructionCard({ instructionObj, onUpdate }) {
 InstructionCard.propTypes = {
   instructionObj: PropTypes.shape({
     recipeId: PropTypes.string,
-    step: PropTypes.bool,
+    step: PropTypes.number,
     instruction: PropTypes.string,
     firebaseKey: PropTypes.string,
   }).isRequired,
