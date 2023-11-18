@@ -33,12 +33,11 @@ export default function NoteForm({ noteObj }) {
 
     if (noteObj.firebaseKey) {
       updateNote(formInput).then(() => router.back());
-      // console.warn('Hi');
     } else {
       const payload = { ...formInput, uid: user.uid };
       createNote(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
-        updateNote(patchPayload).then(() => router.push('/myRecipes'));
+        updateNote(patchPayload).then(() => router.back());
       });
     }
   };
