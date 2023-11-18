@@ -20,7 +20,7 @@ const initialState = {
 
 function RecipeForm({ recipeObj }) {
   const { user } = useAuth();
-  const [formInput, setFormInput] = useState({ ...initialState, uid: user.uid });
+  const [formInput, setFormInput] = useState({ ...initialState });
   const router = useRouter();
 
   useEffect(() => {

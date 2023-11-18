@@ -14,10 +14,6 @@ function PersonalRecipes() {
     privateRecipes(user.uid).then(setRecipes);
   };
 
-  // const filteredFall = () => {
-  //   recipes.filter((recipe) => recipe.season === 'fall');
-  // };
-
   useEffect(() => {
     getMyRecipes();
   }, [user]);

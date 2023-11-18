@@ -53,6 +53,10 @@ export default function ViewRecipe() {
         <InstructionCard key={instruction.firebaseKey} instructionObj={instruction} onUpdate={getRDetails} />
       ))}
       </div>
+      <div>
+        <Link passHref href={`/instruction/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" variant="outline-success">ADD A STEP</Button>
+        </Link>
+      </div>
       {recipeDetails.isPrivate ? (
         <div>{recipeNotes?.map((recipeNote) => (
           <NoteCard key={recipeNote.firebaseKey} noteObj={recipeNote} onUpdate={getRDetails} />
