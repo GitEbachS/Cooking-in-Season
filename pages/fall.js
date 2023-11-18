@@ -23,7 +23,7 @@ function FilteredFallRecipes() {
 
   return (
     <div className="text-center my-4">
-      <h1>FALL RECIPES</h1>
+      <h1>FALL RECIPES!</h1>
       <div>
         <Link passHref href="/fall">
           <Button variant="outline-secondary" type="button" size="sm" className="copy-btn">
