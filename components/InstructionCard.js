@@ -1,8 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { deleteSingleInstruction } from '../api/instructionsData';
 
 function InstructionCard({ instructionObj, onUpdate }) {
@@ -14,15 +16,13 @@ function InstructionCard({ instructionObj, onUpdate }) {
 
   return (
     <div>
-      <Card.Title>{instructionObj.step > 1 ? '' : 'Instructions'}</Card.Title>
-      <p className="card-text bold">Step {instructionObj.step}:</p>
-      <p className="card-text bold">{instructionObj.instruction}</p>
+      <Card.Title>{instructionObj.step > 1 ? '' : 'Instructions:'}</Card.Title>
       <Link href={`/instruction/edit/${instructionObj.firebaseKey}`} passHref>
-        <Button variant="info">EDIT</Button>
+        <FontAwesomeIcon icon={faPenToSquare} size="2xs" style={{ color: '#d312cd' }} />
       </Link>
-      <Button variant="danger" onClick={deleteThisInstruction} className="m-2">
-        DELETE
-      </Button>
+      <FontAwesomeIcon onClick={deleteThisInstruction} icon={faTrashCan} size="2xs" style={{ color: '#51d260' }} />
+      <span className="card-text bold">  Step {instructionObj.step}:</span>
+      <span className="card-text bold"> {instructionObj.instruction}</span>
     </div>
   );
 }
