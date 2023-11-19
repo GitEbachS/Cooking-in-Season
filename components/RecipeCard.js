@@ -3,6 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { faTrashCan, faPenToSquare, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { deleteRecipeInstructions } from '../api/mergedData';
 import { createRecipe, privateRecipes, updateRecipe } from '../api/recipeData';
 import { useAuth } from '../utils/context/authContext';
@@ -50,27 +54,25 @@ function RecipeCard({ recipeObj, onUpdate }) {
 
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
-      {duplicate ? <p>ADDED</p> : <Button type="button" onClick={addToList} className="editBtn m-2" variant="outline-success">ADD TO LIST</Button>}
+      {duplicate ? <p>ADDED  <FontAwesomeIcon icon={faCheck} size="lg" style={{ color: '#38cc42' }} /></p> : <Button type="button" onClick={addToList} className="editBtn m-2" variant="outline-success">ADD TO LIST</Button>}
 
       <Card.Img variant="top" src={recipeObj.image} alt={recipeObj.name} style={{ height: '350px' }} />
       <Card.Body>
         <Card.Title>{recipeObj.name}</Card.Title>
         {/* <p className="card-text bold">{recipeObj.isPrivate ? ' Private' : 'Public'}</p> */}
-        <p className="card-text bold">{recipeObj.author}</p>
-        <p className="card-text bold">{recipeObj.season}</p>
-        <p className="card-text bold">{recipeObj.ingredients}</p>
-        <p className="card-text bold">{recipeObj.description}</p>
-        <p className="card-text bold">{recipeObj.type}</p>
+        <p className="card-text bold">Author: {recipeObj.author}</p>
+        <p className="card-text bold">Seasonal Dish: {recipeObj.season}</p>
+        <p className="card-text bold">Ingredients: {recipeObj.ingredients}</p>
+        <p className="card-text bold">Description: {recipeObj.description}</p>
+        <p className="card-text bold">Type: {recipeObj.type}</p>
         <div className="wrapper">
           <Link href={`/recipe/${recipeObj.firebaseKey}`} passHref>
-            <Button variant="primary" className="viewBtn m-2">VIEW</Button>
+            <Button variant="outline-success" size="sm" className="viewBtn m-2">VIEW</Button>
           </Link>
           <Link href={`/recipe/edit/${recipeObj.firebaseKey}`} passHref>
-            <Button className="editBtn m-2" variant="info">EDIT</Button>
+            <FontAwesomeIcon icon={faPenToSquare} size="lg" alt="edit" style={{ color: '#eba62d' }} />
           </Link>
-          <Button variant="warning" onClick={deleteThisRecipe} className="deleteBtn m-2">
-            DELETE
-          </Button>
+          <FontAwesomeIcon onClick={deleteThisRecipe} icon={faTrashCan} size="lg" style={{ color: '#5a9ce2' }} />
         </div>
       </Card.Body>
     </Card>

@@ -1,8 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotateLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { viewRecipeDetails } from '../../api/mergedData';
 import InstructionCard from '../../components/InstructionCard';
 import { getRecipeNotes } from '../../api/noteData';
@@ -36,10 +39,10 @@ export default function ViewRecipe() {
           <img src={recipeDetails.image} alt={recipeDetails.name} style={{ width: '300px' }} />
         </div>
         <div className="text-white ms-5 details">
-          <h1>{recipeDetails.name}</h1>
           <Link href={`/recipe/edit/${recipeDetails.firebaseKey}`} passHref>
-            <Button className="editBtn m-2" variant="info">EDIT</Button>
+            <FontAwesomeIcon icon={faPenToSquare} size="xl" alt="edit" style={{ color: '#eba62d' }} />
           </Link>
+          <h1>{recipeDetails.name}</h1>
           <p className="card-text bold">{recipeDetails.isPrivate ? ' Private' : 'Public'}</p>
           <p className="card-text bold">{recipeDetails.author}</p>
           <p className="card-text bold">{recipeDetails.season}</p>
@@ -54,7 +57,7 @@ export default function ViewRecipe() {
       ))}
       </div>
       <div>
-        <Link passHref href={`/instruction/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" variant="outline-success">ADD A STEP</Button>
+        <Link passHref href={`/instruction/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" size="sm" style={{ fontSize: '22px' }} variant="outline-secondary">+</Button>
         </Link>
       </div>
       {recipeDetails.isPrivate ? (
@@ -65,13 +68,13 @@ export default function ViewRecipe() {
       ) : ''}
       {recipeDetails.isPrivate ? (
         <div>
-          <Link passHref href={`/note/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" variant="outline-success">ADD NOTE</Button>
+          <Link passHref href={`/note/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" variant="outline-success">Create your note!</Button>
           </Link>
         </div>
       ) : ''}
 
       <Link passHref href="/myRecipes">
-        <Button className="editBtn m-2" variant="outline-success">BACK</Button>
+        <Button className="m-2" variant="outline-dark"><FontAwesomeIcon icon={faRotateLeft} size="xl" style={{ color: '#31363f' }} /></Button>
       </Link>
     </>
   );
