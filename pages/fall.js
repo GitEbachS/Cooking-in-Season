@@ -3,23 +3,23 @@ import { Button } from 'react-bootstrap';
 import Link from 'next/link';
 import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
-import { privateRecipes } from '../api/recipeData';
 import RecipeCard from '../components/RecipeCard';
+import { getMyRecipesDetails } from '../api/mergedData';
 
 function FilteredFallRecipes() {
   const [fallRecipes, setFallRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   const { user } = useAuth();
 
-  const getFRecipes = () => {
-    privateRecipes(user.uid).then((privateItems) => {
-      const filteredFall = privateItems.filter((privateItem) => privateItem.season === 'Fall');
-      setFallRecipes(filteredFall);
-    });
+  const getFRecipes = async () => {
+    getMyRecipesDetails(user.uid).then(setRecipes);
+    const filtered = recipes.filter((item) => item.season === 'Fall');
+    setFallRecipes(filtered);
   };
 
   useEffect(() => {
     getFRecipes();
-  }, [user]);
+  }, [user, recipes]);
 
   return (
     <div className="text-center my-4">
@@ -47,7 +47,7 @@ function FilteredFallRecipes() {
         </Link>
       </div>
       <div className="d-flex flex-wrap">
-        {fallRecipes.map((fallRecipe) => (
+        {fallRecipes && fallRecipes.map((fallRecipe) => (
           <RecipeCard key={fallRecipe.firebaseKey} recipeObj={fallRecipe} onUpdate={getFRecipes} />
         ))}
 
