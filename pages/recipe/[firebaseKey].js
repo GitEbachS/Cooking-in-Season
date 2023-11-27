@@ -16,6 +16,7 @@ export default function ViewRecipe() {
   const { user } = useAuth();
   const [recipeDetails, setRecipeDetails] = useState({});
   const [recipeNotes, setRecipeNotes] = useState([]);
+  const [note, setNote] = useState(false);
   const router = useRouter();
 
   const { firebaseKey } = router.query;
@@ -23,15 +24,23 @@ export default function ViewRecipe() {
   const getRDetails = async () => {
     const recipeInstructionArray = await viewRecipeDetails(firebaseKey);
     const noteData = await getRecipeNotes(user.uid, firebaseKey);
-    // const privateRecipesArray = await privateRecipes(uid);
+
     setRecipeDetails(recipeInstructionArray);
-    setRecipeNotes(noteData);
+    if (note) {
+      setRecipeNotes(noteData);
+    }
   };
 
+  const savedNotes = async () => {
+    const checkRecipes = await getRecipeNotes(user.uid, firebaseKey);
+    if (checkRecipes) {
+      setNote(true);
+    }
+  };
   useEffect(() => {
+    savedNotes();
     getRDetails();
-  }, [firebaseKey]);
-  console.warn(recipeNotes);
+  }, [note]);
   return (
     <>
       <div className="mt-5 d-flex flex-wrap">
@@ -39,16 +48,21 @@ export default function ViewRecipe() {
           <img src={recipeDetails.image} alt={recipeDetails.name} style={{ width: '300px' }} />
         </div>
         <div className="text-white ms-5 details">
-          <Link href={`/recipe/edit/${recipeDetails.firebaseKey}`} passHref>
-            <FontAwesomeIcon icon={faPenToSquare} size="xl" alt="edit" style={{ color: '#eba62d' }} />
-          </Link>
+          {recipeDetails.uid === user.uid
+            ? (
+              <div>
+                <Link href={`/recipe/edit/${recipeDetails.firebaseKey}`} passHref>
+                  <FontAwesomeIcon icon={faPenToSquare} size="xl" alt="edit" style={{ color: '#eba62d' }} />
+                </Link>
+              </div>
+            ) : ''}
+
           <h1>{recipeDetails.name}</h1>
-          <p className="card-text bold">{recipeDetails.isPrivate ? ' Private' : 'Public'}</p>
-          <p className="card-text bold">{recipeDetails.author}</p>
-          <p className="card-text bold">{recipeDetails.season}</p>
-          <p className="card-text bold">{recipeDetails.ingredients}</p>
-          <p className="card-text bold">{recipeDetails.description}</p>
-          <p className="card-text bold">{recipeDetails.type}</p>
+          <p className="card-text bold">Author: {recipeDetails.author}</p>
+          <p className="card-text bold">Seasonal Dish: {recipeDetails.season}</p>
+          <p className="card-text bold">Ingredients: {recipeDetails.ingredients}</p>
+          <p className="card-text bold">Description: {recipeDetails.description}</p>
+          <p className="card-text bold">Type: {recipeDetails.type}</p>
         </div>
       </div>
 
@@ -56,17 +70,22 @@ export default function ViewRecipe() {
         <InstructionCard key={instruction.firebaseKey} instructionObj={instruction} onUpdate={getRDetails} />
       ))}
       </div>
-      <div>
-        <Link passHref href={`/instruction/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" size="sm" style={{ fontSize: '22px' }} variant="outline-secondary">+</Button>
-        </Link>
+      {recipeDetails.uid === user.uid
+        ? (
+          <div>
+            <div>
+              <Link passHref href={`/instruction/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" size="sm" style={{ fontSize: '22px' }} variant="outline-secondary">+</Button>
+              </Link>
+            </div>
+          </div>
+        ) : ''}
+
+      <div>{recipeNotes?.map((recipeNote) => (
+        <NoteCard key={recipeNote.firebaseKey} noteObj={recipeNote} onUpdate={getRDetails} />
+      ))}
       </div>
-      {recipeDetails.isPrivate ? (
-        <div>{recipeNotes?.map((recipeNote) => (
-          <NoteCard key={recipeNote.firebaseKey} noteObj={recipeNote} onUpdate={getRDetails} />
-        ))}
-        </div>
-      ) : ''}
-      {recipeDetails.isPrivate ? (
+
+      {note ? (
         <div>
           <Link passHref href={`/note/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" variant="outline-success">Create your note!</Button>
           </Link>

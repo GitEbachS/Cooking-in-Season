@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import Link from 'next/link';
 import { createInstructions, updateInstructions } from '../../api/instructionsData';
+import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
   step: '',
@@ -14,8 +15,9 @@ const initialState = {
 
 function InstructionForm({ instructionObj }) {
   const router = useRouter();
+  const { user } = useAuth();
   const { firebaseKey } = router.query;
-  const [formInput, setFormInput] = useState({ ...initialState, recipeId: firebaseKey });
+  const [formInput, setFormInput] = useState({ ...initialState, recipeId: firebaseKey, uid: user.uid });
 
   useEffect(() => {
     if (instructionObj.firebaseKey) setFormInput(instructionObj);
@@ -41,7 +43,6 @@ function InstructionForm({ instructionObj }) {
       });
     }
   };
-  console.warn(instructionObj);
   return (
     <Form onSubmit={handleSubmit}>
       <Link href={`/recipe/${firebaseKey}`} passHref>
@@ -51,7 +52,7 @@ function InstructionForm({ instructionObj }) {
 
       <FloatingLabel controlId="floatingInput1" label="Step" className="mb-3">
         <Form.Control
-          type="number"
+          type="text"
           placeholder="Step"
           name="step"
           value={formInput.step}
@@ -69,29 +70,6 @@ function InstructionForm({ instructionObj }) {
           required
         />
       </FloatingLabel>
-      {/* <FloatingLabel controlId="floatingSelect" label="Author">
-        <Form.Select
-          aria-label="Author"
-          name="author_id"
-          onChange={handleChange}
-          className="mb-3"
-          value={formInput.recipeId}
-          required
-        >
-          <option value="">Select an Author</option>
-          {
-            authors.map((author) => (
-              <option
-                key={author.firebaseKey}
-                value={author.firebaseKey}
-              >
-                {author.first_name} {author.last_name}
-              </option>
-            ))
-          }
-        </Form.Select>
-      </FloatingLabel> */}
-      {/* SUBMIT BUTTON  */}
       <Button type="submit">{instructionObj.firebaseKey ? 'Update' : 'Save'} Instruction</Button>
     </Form>
   );
@@ -99,10 +77,11 @@ function InstructionForm({ instructionObj }) {
 
 InstructionForm.propTypes = {
   instructionObj: PropTypes.shape({
-    step: PropTypes.number,
+    step: PropTypes.string,
     instruction: PropTypes.string,
     recipeId: PropTypes.string,
     firebaseKey: PropTypes.string,
+    uid: PropTypes.string,
   }),
 };
 

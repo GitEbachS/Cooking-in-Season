@@ -3,23 +3,23 @@ import { Button } from 'react-bootstrap';
 import Link from 'next/link';
 import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
-import { privateRecipes } from '../api/recipeData';
 import RecipeCard from '../components/RecipeCard';
+import { getMyRecipesDetails } from '../api/mergedData';
 
 function FilteredSummerRecipes() {
   const [summerRecipes, setSummerRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   const { user } = useAuth();
 
   const getSummerRecipes = () => {
-    privateRecipes(user.uid).then((privateItems) => {
-      const filteredSummer = privateItems.filter((privateItem) => privateItem.season === 'Summer');
-      setSummerRecipes(filteredSummer);
-    });
+    getMyRecipesDetails(user.uid).then(setRecipes);
+    const filtered = recipes.filter((item) => item.season === 'Summer');
+    setSummerRecipes(filtered);
   };
 
   useEffect(() => {
     getSummerRecipes();
-  }, [user]);
+  }, [user, recipes]);
 
   return (
     <div className="text-center my-4">

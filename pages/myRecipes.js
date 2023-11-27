@@ -3,20 +3,23 @@ import { Button } from 'react-bootstrap';
 import Link from 'next/link';
 import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
-import { privateRecipes } from '../api/recipeData';
 import RecipeCard from '../components/RecipeCard';
+import { getMyRecipes } from '../api/myRecipes';
+import { getSingleRecipe } from '../api/recipeData';
 
 function PersonalRecipes() {
   const [recipes, setRecipes] = useState([]);
   const { user } = useAuth();
 
-  const getMyRecipes = () => {
-    privateRecipes(user.uid).then(setRecipes);
+  const getSavedRecipes = async () => {
+    const savedRecipes = await getMyRecipes(user.uid);
+    const filteredSavedRecipes = await savedRecipes?.map((savedItem) => getSingleRecipe(savedItem.recipeId));
+    Promise.all(filteredSavedRecipes).then(setRecipes);
   };
 
   useEffect(() => {
-    getMyRecipes();
-  }, [user]);
+    getSavedRecipes();
+  }, [user, recipes]);
 
   return (
     <div className="text-center my-4">
@@ -44,8 +47,8 @@ function PersonalRecipes() {
         </Link>
       </div>
       <div className="d-flex flex-wrap">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.firebaseKey} recipeObj={recipe} onUpdate={getMyRecipes} />
+        {recipes?.map((recipe) => (
+          <RecipeCard key={recipe.firebaseKey} recipeObj={recipe} onUpdate={getSavedRecipes} />
         ))}
 
       </div>

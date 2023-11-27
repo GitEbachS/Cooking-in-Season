@@ -6,7 +6,7 @@ import { useAuth } from '../../utils/context/authContext';
 import { createNote, updateNote } from '../../api/noteData';
 
 const initialState = {
-  favorite: '',
+  favorite: false,
   description: '',
 };
 
@@ -87,8 +87,8 @@ export default function NoteForm({ noteObj }) {
 NoteForm.propTypes = {
   noteObj: PropTypes.shape({
     recipeId: PropTypes.string,
-    favorite: PropTypes.bool,
     description: PropTypes.string,
+    favorite: PropTypes.bool,
     firebaseKey: PropTypes.string,
   }),
 };

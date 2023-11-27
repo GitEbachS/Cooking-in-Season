@@ -117,21 +117,6 @@ function RecipeForm({ recipeObj }) {
         />
       </FloatingLabel>
 
-      {/* A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}
-      <Form.Check
-        className="text-white mb-3"
-        type="switch"
-        id="isPrivate"
-        name="isPrivate"
-        label="Private?"
-        checked={formInput.isPrivate}
-        onChange={(e) => {
-          setFormInput((prevState) => ({
-            ...prevState,
-            isPrivate: e.target.checked,
-          }));
-        }}
-      />
       <FloatingLabel controlId="floatingInput1" label="Type" className="mb-3">
         <Form.Select
           aria-label="type"
@@ -170,7 +155,6 @@ RecipeForm.propTypes = {
     name: PropTypes.string,
     image: PropTypes.string,
     description: PropTypes.string,
-    isPrivate: PropTypes.bool,
     type: PropTypes.string,
     season: PropTypes.string,
     ingredients: PropTypes.string,
