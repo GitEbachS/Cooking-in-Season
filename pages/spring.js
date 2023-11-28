@@ -47,7 +47,7 @@ function FilteredSpringRecipes() {
         </Link>
       </div>
       <div className="d-flex flex-wrap">
-        {springRecipes.map((springRecipe) => (
+        {springRecipes?.map((springRecipe) => (
           <RecipeCard key={springRecipe.firebaseKey} recipeObj={springRecipe} onUpdate={getSpringRecipes} />
         ))}
 

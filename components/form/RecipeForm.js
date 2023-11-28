@@ -10,7 +10,6 @@ import { createRecipe, updateRecipe } from '../../api/recipeData';
 const initialState = {
   image: '',
   name: '',
-  isPrivate: false,
   author: '',
   season: '',
   ingredients: '',
