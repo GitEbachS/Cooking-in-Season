@@ -18,8 +18,9 @@ function NoteCard({ noteObj, onUpdate }) {
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Body>
         <Card.Title>Note</Card.Title>
-        <p className="card-text bold">{noteObj.favorite ? <FontAwesomeIcon icon={faHeart} style={{ color: '#e222b9' }} /> : ''}</p>
-        <p className="card-text bold">{noteObj.description}</p>
+        <p className="card-text bold">Posted: {noteObj.createdAt}</p>
+        <p className="card-text bold">Favorite recipe: {noteObj.favorite ? <FontAwesomeIcon icon={faHeart} style={{ color: '#e222b9' }} /> : ''}</p>
+        <p className="card-text bold">Description: {noteObj.description}</p>
         <Link href={`/note/edit/${noteObj.firebaseKey}`} passHref>
           <FontAwesomeIcon icon={faPenToSquare} size="lg" alt="edit" style={{ color: '#eba62d' }} />
         </Link>
@@ -34,6 +35,7 @@ NoteCard.propTypes = {
     recipeId: PropTypes.string,
     favorite: PropTypes.bool,
     description: PropTypes.string,
+    createdAt: PropTypes.string,
     firebaseKey: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
