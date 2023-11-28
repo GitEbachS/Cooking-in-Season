@@ -40,7 +40,7 @@ function OccasionRecipes() {
         </Button>
       </Link>
       <div className="d-flex flex-wrap">
-        {occasions.map((occasion) => (
+        {occasions?.map((occasion) => (
           <RecipeCard key={occasion.firebaseKey} recipeObj={occasion} onUpdate={getTheOccasions} />
         ))}
 

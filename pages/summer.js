@@ -47,7 +47,7 @@ function FilteredSummerRecipes() {
         </Link>
       </div>
       <div className="d-flex flex-wrap">
-        {summerRecipes.map((summerRecipe) => (
+        {summerRecipes?.map((summerRecipe) => (
           <RecipeCard key={summerRecipe.firebaseKey} recipeObj={summerRecipe} onUpdate={getSummerRecipes} />
         ))}
 

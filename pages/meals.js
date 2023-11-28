@@ -40,7 +40,7 @@ function MealRecipes() {
         </Button>
       </Link>
       <div className="d-flex flex-wrap">
-        {meals.map((meal) => (
+        {meals?.map((meal) => (
           <RecipeCard key={meal.firebaseKey} recipeObj={meal} onUpdate={getTheMeals} />
         ))}
 

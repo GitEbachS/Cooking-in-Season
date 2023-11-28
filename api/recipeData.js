@@ -84,20 +84,6 @@ const updateRecipe = (payload) => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
-const privateRecipes = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/recipes.json?orderBy="uid"&equalTo="${uid}"`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const filteredRecipes = Object.values(data).filter((item) => item.isPrivate);
-      resolve(filteredRecipes);
-    })
-    .catch(reject);
-});
 
 const getRecipeInstructions = (recipeFirebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/instructions.json?orderBy="recipeId"&equalTo="${recipeFirebaseKey}"`, {
@@ -111,5 +97,5 @@ const getRecipeInstructions = (recipeFirebaseKey) => new Promise((resolve, rejec
 });
 
 export {
-  getRecipes, getAllMemberRecipes, createRecipe, getSingleRecipe, deleteSingleRecipe, updateRecipe, getRecipeInstructions, privateRecipes,
+  getRecipes, getAllMemberRecipes, createRecipe, getSingleRecipe, deleteSingleRecipe, updateRecipe, getRecipeInstructions,
 };

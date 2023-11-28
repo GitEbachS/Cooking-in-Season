@@ -47,7 +47,7 @@ function FilteredFallRecipes() {
         </Link>
       </div>
       <div className="d-flex flex-wrap">
-        {fallRecipes && fallRecipes.map((fallRecipe) => (
+        {fallRecipes?.map((fallRecipe) => (
           <RecipeCard key={fallRecipe.firebaseKey} recipeObj={fallRecipe} onUpdate={getFRecipes} />
         ))}
 
