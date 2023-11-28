@@ -26,6 +26,9 @@ export default function NavBar() {
             <Link passHref href="/recipe/new">
               <Nav.Link>Create Recipe</Nav.Link>
             </Link>
+            <Link passHref href="/profile">
+              <Nav.Link>Profile</Nav.Link>
+            </Link>
             <Button variant="outline-warning" onClick={signOut}>Sign Out</Button>
           </Nav>
         </Navbar.Collapse>

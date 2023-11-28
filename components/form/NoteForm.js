@@ -8,6 +8,7 @@ import { createNote, updateNote } from '../../api/noteData';
 const initialState = {
   favorite: false,
   description: '',
+  createdAt: '',
 };
 
 export default function NoteForm({ noteObj }) {
@@ -46,6 +47,13 @@ export default function NoteForm({ noteObj }) {
     <>
       <Form onSubmit={handleSubmit}>
         <h2 className="text-white mt-5">{noteObj.firebaseKey ? 'Update' : 'Create'} Note</h2>
+        <Form.Group className="mb-3">
+          <Form.Label>Date: </Form.Label>
+
+          <Form.Control type="date" id="start" name="createdAt" value={formInput.createdAt} min="2023-10-31" max="2024-1-30" onChange={handleChange} />
+
+        </Form.Group>
+
         <Form.Group className="mb-3">
           <Form.Label>Favorite?</Form.Label>
           <Form.Check
@@ -89,6 +97,7 @@ NoteForm.propTypes = {
     recipeId: PropTypes.string,
     description: PropTypes.string,
     favorite: PropTypes.bool,
+    createdAt: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };
