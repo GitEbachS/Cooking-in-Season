@@ -29,6 +29,12 @@ export default function NavBar() {
             <Link passHref href="/profile">
               <Nav.Link>Profile</Nav.Link>
             </Link>
+            <Link passHref href="/day/new">
+              <Nav.Link>Create Meal Plan</Nav.Link>
+            </Link>
+            <Link passHref href="/days">
+              <Nav.Link>Meal Rotation</Nav.Link>
+            </Link>
             <Button variant="outline-warning" onClick={signOut}>Sign Out</Button>
           </Nav>
         </Navbar.Collapse>

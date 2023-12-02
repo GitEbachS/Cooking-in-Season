@@ -1,3 +1,4 @@
+import { deleteSingleDay, getRecipesByDay, getSingleDay } from './dayData';
 import { deleteSingleInstruction } from './instructionsData';
 import { deleteMySingleRecipe, getMyRecipeById, getMyRecipes } from './myRecipes';
 import { deleteSingleNote, getRecipeNotes } from './noteData';
@@ -16,30 +17,37 @@ const deleteRecipeNotes = (recipeId, uid) => new Promise((resolve, reject) => {
     Promise.all(deleteNotePromises).then(resolve);
   }).catch((error) => reject(error));
 });
-
+const viewDayRecipeDetails = (uid, recipeFirebaseKey) => new Promise((resolve, reject) => {
+  Promise.all([getSingleDay(recipeFirebaseKey), getRecipesByDay(uid, recipeFirebaseKey)])
+    .then(([dayObject, dayRecipesArray]) => {
+      resolve({ ...dayObject, recipes: dayRecipesArray });
+    }).catch((error) => reject(error));
+});
 const deleteRecipeInstructions = (recipeId, uid) => new Promise((resolve, reject) => {
-  getRecipeInstructions(recipeId).then((instructionsArray) => {
-    const deleteIngredientPromises = instructionsArray.map((instruction) => deleteSingleInstruction(instruction.firebaseKey));
+  getRecipeInstructions(recipeId)?.then((instructionsArray) => {
+    const deleteIngredientPromises = instructionsArray?.map((instruction) => deleteSingleInstruction(instruction.firebaseKey));
 
-    const deleteNote = getRecipeNotes(uid, recipeId).then((noteArray) => noteArray.map((note) => deleteSingleNote(note.firebaseKey)));
+    const deleteNote = getRecipeNotes(uid, recipeId)?.then((noteArray) => noteArray.map((note) => deleteSingleNote(note.firebaseKey)));
 
-    Promise.all(deleteIngredientPromises, deleteNote).then(() => {
+    const deleteDay = getRecipesByDay(uid, recipeId)?.then((dayArray) => dayArray.map((day) => deleteSingleDay(day.firebaseKey)));
+
+    Promise.all(deleteIngredientPromises, deleteNote, deleteDay).then(() => {
       deleteSingleRecipe(recipeId).then(resolve);
     });
   }).catch((error) => reject(error));
 });
 
 const deleteMyRecipe = (recipeId) => new Promise((resolve, reject) => {
-  getMyRecipeById(recipeId).then((myRecipesArray) => {
-    const deleteRecipePromises = myRecipesArray.map((recipe) => deleteMySingleRecipe(recipe.firebaseKey));
+  getMyRecipeById(recipeId)?.then((myRecipesArray) => {
+    const deleteRecipePromises = myRecipesArray?.map((recipe) => deleteMySingleRecipe(recipe.firebaseKey));
 
     Promise.all(deleteRecipePromises).then(resolve);
   }).catch((error) => reject(error));
 });
 const getMyRecipesDetails = (uid) => new Promise((resolve, reject) => {
-  getMyRecipes(uid).then((myRecipesArray) => {
-    const myRec = myRecipesArray.map((recipe) => getSingleRecipe(recipe.recipeId));
-    Promise.all(myRec).then((data) => resolve(Object.values(data)));
+  getMyRecipes(uid)?.then((myRecipesArray) => {
+    const myRec = myRecipesArray?.map((recipe) => getSingleRecipe(recipe.recipeId));
+    Promise.all(myRec)?.then((data) => resolve(Object.values(data)));
   }).catch((error) => reject(error));
 });
 
@@ -52,6 +60,27 @@ const deleteMyRecipeNotes = (recipeId, uid) => new Promise((resolve, reject) => 
   }).catch((error) => reject(error));
 });
 
+const viewDayDetails = (firebaseKey) => new Promise((resolve, reject) => {
+  getSingleDay(firebaseKey)
+    .then((dayObject) => {
+      getSingleRecipe(dayObject?.recipeId)
+        .then((recipeObject) => {
+          resolve({ recipeObject, ...dayObject });
+        });
+    }).catch((error) => reject(error));
+});
+
+// const getDayDetails = async (dayId) => {
+//   const singleDay = await getSingleDay(dayId);
+
+//   const allDayRecipes = await getDayRecipes(dayId);
+
+//   const getSingleRecipes = await allDayRecipes.map((dayRecipe) => getSingleRecipe(dayRecipe.recipeId));
+
+//   const dayWithAllRecipes = await Promise.all(getSingleRecipes);
+
+//   return { ...singleDay, dayWithAllRecipes };
+// };
 export {
-  viewRecipeDetails, deleteMyRecipeNotes, getMyRecipesDetails, deleteMyRecipe, deleteRecipeNotes, deleteRecipeInstructions,
+  viewRecipeDetails, deleteMyRecipeNotes, getMyRecipesDetails, deleteMyRecipe, deleteRecipeNotes, deleteRecipeInstructions, viewDayDetails, viewDayRecipeDetails,
 };
