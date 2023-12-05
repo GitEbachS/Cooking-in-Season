@@ -18,7 +18,6 @@ export default function ViewRecipe() {
   const [recipeNotes, setRecipeNotes] = useState([]);
   const [note, setNote] = useState(false);
   const router = useRouter();
-
   const { firebaseKey } = router.query;
 
   const getRDetails = async () => {
