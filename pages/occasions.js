@@ -25,17 +25,17 @@ function OccasionRecipes() {
     <div className="text-center my-4">
       <h1>RECIPES</h1>
       <Link passHref href="/meals">
-        <Button variant="outline-secondary" type="button" size="sm" className="copy-btn">
+        <Button variant="outline-secondary" type="button" size="sm" className="seasonBtn copy-btn">
           Meals
         </Button>
       </Link>
       <Link passHref href="/desserts">
-        <Button variant="outline-secondary" type="button" size="sm" className="copy-btn">
+        <Button variant="outline-secondary" type="button" size="sm" className="seasonBtn copy-btn">
           Desserts
         </Button>
       </Link>
       <Link passHref href="/occasions">
-        <Button variant="outline-secondary" type="button" size="sm" className="copy-btn">
+        <Button variant="outline-secondary" type="button" size="sm" className="seasonBtn copy-btn">
           Occasions
         </Button>
       </Link>

@@ -144,7 +144,7 @@ function RecipeForm({ recipeObj }) {
       </FloatingLabel>
 
       {/* SUBMIT BUTTON  */}
-      <Button type="submit">{recipeObj.firebaseKey ? 'Update' : 'Create'} Recipe</Button>
+      <Button className="createBtn" type="submit">{recipeObj.firebaseKey ? 'Update' : 'Create'} Recipe</Button>
     </Form>
   );
 }

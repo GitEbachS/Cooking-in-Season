@@ -8,34 +8,34 @@ import { signOut } from '../utils/auth';
 
 export default function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
+    <Navbar collapseOnSelect expand="lg" className="navColor">
+      <Container className="navSize">
         <Link passHref href="/">
-          <Navbar.Brand>Cooking In Season</Navbar.Brand>
+          <Navbar.Brand className="navTitle">Cooking In Season</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
             <Link passHref href="/">
-              <Nav.Link>Home</Nav.Link>
+              <Nav.Link className="navHover">Home</Nav.Link>
             </Link>
             <Link passHref href="/myRecipes">
-              <Nav.Link>My Recipes</Nav.Link>
+              <Nav.Link className="navHover">List</Nav.Link>
             </Link>
             <Link passHref href="/recipe/new">
-              <Nav.Link>Create Recipe</Nav.Link>
-            </Link>
-            <Link passHref href="/profile">
-              <Nav.Link>Profile</Nav.Link>
+              <Nav.Link className="navHover">New Recipe</Nav.Link>
             </Link>
             <Link passHref href="/day/new">
-              <Nav.Link>Create Meal Plan</Nav.Link>
+              <Nav.Link className="navHover">Plan</Nav.Link>
             </Link>
             <Link passHref href="/days">
-              <Nav.Link>Meal Rotation</Nav.Link>
+              <Nav.Link className="navHover">Rotation</Nav.Link>
             </Link>
-            <Button variant="outline-warning" onClick={signOut}>Sign Out</Button>
+            <Link passHref href="/profile">
+              <Nav.Link className="navHover">Profile</Nav.Link>
+            </Link>
+            <Button className="signOutBtn" variant="outline-warning" size="sm" onClick={signOut}>Sign Out</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

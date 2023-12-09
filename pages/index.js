@@ -20,19 +20,19 @@ function AllRecipes() {
 
   return (
     <div className="text-center my-4">
-      <h1>RECIPES</h1>
+      <h1 className="indexTitle">RECIPES</h1>
       <Link passHref href="/meals">
-        <Button variant="outline-secondary" type="button" size="sm" className="copy-btn">
+        <Button type="button" size="sm" className="seasonBtn">
           Meals
         </Button>
       </Link>
       <Link passHref href="/desserts">
-        <Button variant="outline-secondary" type="button" size="sm" className="copy-btn">
+        <Button type="button" size="sm" className="seasonBtn">
           Desserts
         </Button>
       </Link>
       <Link passHref href="/occasions">
-        <Button variant="outline-secondary" type="button" size="sm" className="copy-btn">
+        <Button type="button" size="sm" className="seasonBtn">
           Occasions
         </Button>
       </Link>

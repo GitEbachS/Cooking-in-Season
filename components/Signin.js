@@ -5,17 +5,16 @@ import { signIn } from '../utils/auth';
 function Signin() {
   return (
     <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
+      className="text-center d-flex flex-column justify-content-center align-content-center signIn"
       style={{
         height: '90vh',
         padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
+        maxWidth: '800px',
       }}
     >
-      <h1>Hi there!</h1>
-      <p>Click the button below to login!</p>
-      <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
+      <h1 className="signInTitle">Cooking In Season</h1>
+      <p className="signInWelcome">CELEBRATE THE SEASONS, ONE BITE AT A TIME</p>
+      <Button type="button" size="lg" className="signInMembers" onClick={signIn}>
         Sign In
       </Button>
     </div>

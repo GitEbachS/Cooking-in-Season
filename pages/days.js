@@ -36,11 +36,13 @@ export default function ShowDays() {
     <>
       <div className="text-center my-4">
         <Link href="/day/new" passHref>
-          <Button>Add To Weekly Meal Rotation!</Button>
+          <Button className="rotationBtn">Add another day to your rotation!</Button>
         </Link>
-        {weeks?.map((day) => (
-          <DayCard key={day.firebaseKey} dayObj={day} onUpdate={getAllTheDays} />
-        ))}
+        <div className="rotationFlex">
+          {weeks?.map((day) => (
+            <DayCard key={day.firebaseKey} dayObj={day} onUpdate={getAllTheDays} />
+          ))}
+        </div>
       </div>
     </>
   );
