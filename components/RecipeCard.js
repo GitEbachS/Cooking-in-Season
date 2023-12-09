@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { faTrashCan, faPenToSquare, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faPenToSquare, faClipboardList } from '@fortawesome/free-solid-svg-icons';
+import { Col, Container, Row } from 'react-bootstrap';
 import { deleteRecipeInstructions } from '../api/mergedData';
 import { useAuth } from '../utils/context/authContext';
 import {
@@ -56,34 +57,44 @@ function RecipeCard({ recipeObj, onUpdate }) {
   }, [recipeObj, onList]);
 
   return (
-    <Card style={{ width: '18rem', margin: '10px' }}>
-      {onList ? <p>LIST  <FontAwesomeIcon icon={faCheck} size="lg" style={{ color: '#38cc42' }} /></p> : <Button type="button" onClick={addToList} className="editBtn m-2" variant="outline-success">ADD TO LIST</Button>}
-      {onList ? <Button type="button" variant="outline-secondary" onClick={removeFromList} update="onUpdate" size="sm">Remove from list</Button> : ''}
+    <Container className="recipeCard">
+      <Card className="recCard">
 
-      <Card.Img variant="top" src={recipeObj.image} alt={recipeObj.name} style={{ height: '350px' }} />
-      <Card.Body>
-        <Card.Title>{recipeObj.name}</Card.Title>
-        <p className="card-text bold">Author: {recipeObj.author}</p>
-        <p className="card-text bold">Seasonal Dish: {recipeObj.season}</p>
-        <p className="card-text bold">Ingredients: {recipeObj.ingredients}</p>
-        <p className="card-text bold">Description: {recipeObj.description}</p>
-        <p className="card-text bold">Type: {recipeObj.type}</p>
-        <div className="wrapper">
-          <Link href={`/recipe/${recipeObj.firebaseKey}`} passHref>
-            <Button variant="outline-success" size="sm" className="viewBtn m-2">VIEW</Button>
-          </Link>
-          {recipeObj.uid === user.uid
-            ? (
-              <div>
-                <Link href={`/recipe/edit/${recipeObj.firebaseKey}`} passHref>
-                  <FontAwesomeIcon icon={faPenToSquare} size="lg" alt="edit" style={{ color: '#eba62d' }} />
-                </Link>
-                <FontAwesomeIcon onClick={deleteThisRecipe} icon={faTrashCan} size="lg" style={{ color: '#5a9ce2' }} />
-              </div>
-            ) : ''}
-        </div>
-      </Card.Body>
-    </Card>
+        <Row>
+          <Col className="imgBackground" xs={4}>
+            {onList ? <p className="list">LIST  <FontAwesomeIcon icon={faClipboardList} size="lg" style={{ color: '#587570' }} /></p> : <Button type="button" onClick={addToList} size="sm" className="listBtn" variant="outline-success">ADD TO LIST</Button>}
+            <Card.Img variant="top" src={recipeObj.image} alt={recipeObj.name} style={{ height: '200px' }} />
+            {onList ? <Button className="removeBtn" type="button" onClick={removeFromList} update="onUpdate" size="sm">Remove from list</Button> : ''}
+          </Col>
+
+          <Col xs={6}>
+            <Card.Title className="recipeTitle">{recipeObj.name}</Card.Title>
+            <p className="card-text bold">By: <span className="author">{recipeObj.author}</span></p>
+            <p className="card-text bold"><span className="seasonDish">Seasonal Dish:</span> {recipeObj.season}</p>
+            <p className="card-text bold"><span className="ingredients">Ingredients: {recipeObj.ingredients}</span></p>
+            <p className="card-text bold"><span className="description">Description:</span> {recipeObj.description}</p>
+            <p className="card-text bold"><span className="type">Type: {recipeObj.type}</span></p>
+
+            <div className="wrapper">
+              <Link href={`/recipe/${recipeObj.firebaseKey}`} passHref>
+                <Button variant="outline-secondary" size="sm" className="viewBtn m-2">Jump to Recipe</Button>
+              </Link>
+              {recipeObj.uid === user.uid
+                ? (
+                  <div className="cardBtns">
+                    <div className="cardBtnsRight">
+                      <Link href={`/recipe/edit/${recipeObj.firebaseKey}`} passHref>
+                        <FontAwesomeIcon className="editRecipeLink" icon={faPenToSquare} size="lg" alt="edit" style={{ color: '#eba62d' }} />
+                      </Link>
+                      <FontAwesomeIcon onClick={deleteThisRecipe} icon={faTrashCan} size="lg" style={{ color: '#c7680f' }} />
+                    </div>
+                  </div>
+                ) : ''}
+            </div>
+          </Col>
+        </Row>
+      </Card>
+    </Container>
   );
 }
 

@@ -46,7 +46,7 @@ function InstructionForm({ instructionObj }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Link href={`/recipe/${firebaseKey}`} passHref>
-        <Button variant="primary" className="viewBtn m-2">See Your Recipe!</Button>
+        <Button variant="primary" className="viewBtn m-2 removeBtn">See Your Recipe!</Button>
       </Link>
       <h2 className="text-white mt-5">{instructionObj.firebaseKey ? 'Update' : 'Create'} Instruction</h2>
 
@@ -70,7 +70,7 @@ function InstructionForm({ instructionObj }) {
           required
         />
       </FloatingLabel>
-      <Button type="submit">{instructionObj.firebaseKey ? 'Update' : 'Save'} Instruction</Button>
+      <Button className="rotationBtn" type="submit">{instructionObj.firebaseKey ? 'Update' : 'Save'} Instruction</Button>
     </Form>
   );
 }

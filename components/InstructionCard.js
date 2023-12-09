@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faPen } from '@fortawesome/free-solid-svg-icons';
 import { deleteSingleInstruction } from '../api/instructionsData';
 import { useAuth } from '../utils/context/authContext';
 
@@ -17,18 +17,18 @@ function InstructionCard({ instructionObj, onUpdate }) {
   };
 
   return (
-    <div>
-      <Card.Title>{instructionObj.step > Number('1') ? '' : 'Instructions:'}</Card.Title>
+    <div className="instructionContainer">
+      <Card.Title className="instructionTitle">{instructionObj.step > Number('1') ? '' : 'Instructions:'}</Card.Title>
       {instructionObj.uid === user.uid ? (
-        <div>
+        <span>
           <Link href={`/instruction/edit/${instructionObj.firebaseKey}`} passHref>
-            <FontAwesomeIcon icon={faPenToSquare} size="2xs" style={{ color: '#d312cd' }} />
+            <FontAwesomeIcon className="white" icon={faPen} size="2xs" style={{ color: '#686e6c' }} />
           </Link>
-          <FontAwesomeIcon onClick={deleteThisInstruction} icon={faTrashCan} size="2xs" style={{ color: '#51d260' }} />
-        </div>
+          <FontAwesomeIcon className="white" onClick={deleteThisInstruction} icon={faTrashCan} size="2xs" style={{ color: '#5a9ce2' }} />
+        </span>
       ) : ''}
-      <span className="card-text bold">  Step {instructionObj.step}:</span>
-      <span className="card-text bold"> {instructionObj.instruction}</span>
+      <span className="card-text bold step">  Step {instructionObj.step}:</span>
+      <span className="card-text bold instructionLine"> {instructionObj.instruction}</span>
     </div>
   );
 }

@@ -125,7 +125,7 @@ function DayForm({ dayObj }) {
         </FloatingLabel>
       ) : ''}
       {/* SUBMIT BUTTON  */}
-      <Button type="submit">{dayObj.firebaseKey ? 'Update' : 'Create'} Recipe</Button>
+      <Button className="createBtn" type="submit">{dayObj.firebaseKey ? 'Update' : 'Create'} Recipe</Button>
     </Form>
   );
 }

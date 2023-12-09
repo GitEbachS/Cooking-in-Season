@@ -70,17 +70,13 @@ const viewDayDetails = (firebaseKey) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-// const getDayDetails = async (dayId) => {
-//   const singleDay = await getSingleDay(dayId);
+const getDayDetails = async (dayId) => {
+  const singleDay = await getSingleDay(dayId);
 
-//   const allDayRecipes = await getDayRecipes(dayId);
+  const getSingleRecipes = await singleDay.filter((day) => getSingleRecipe(day.recipeId));
 
-//   const getSingleRecipes = await allDayRecipes.map((dayRecipe) => getSingleRecipe(dayRecipe.recipeId));
-
-//   const dayWithAllRecipes = await Promise.all(getSingleRecipes);
-
-//   return { ...singleDay, dayWithAllRecipes };
-// };
+  return getSingleRecipes;
+};
 export {
-  viewRecipeDetails, deleteMyRecipeNotes, getMyRecipesDetails, deleteMyRecipe, deleteRecipeNotes, deleteRecipeInstructions, viewDayDetails, viewDayRecipeDetails,
+  viewRecipeDetails, deleteMyRecipeNotes, getMyRecipesDetails, deleteMyRecipe, deleteRecipeNotes, getDayDetails, deleteRecipeInstructions, viewDayDetails, viewDayRecipeDetails,
 };

@@ -16,21 +16,24 @@ export default function ViewRecipe() {
   const { user } = useAuth();
   const [recipeDetails, setRecipeDetails] = useState({});
   const [recipeNotes, setRecipeNotes] = useState([]);
+  const [instructions, setInstructions] = useState([]);
   const [note, setNote] = useState(false);
   const router = useRouter();
 
   const { firebaseKey } = router.query;
 
   const getRDetails = async () => {
-    const recipeInstructionArray = await viewRecipeDetails(firebaseKey);
+    const viewRecipeData = await viewRecipeDetails(firebaseKey);
+    const sortedInstructions = await viewRecipeData.instructions?.sort((a, b) => a.step - b.step);
     const noteData = await getRecipeNotes(user.uid, firebaseKey);
 
-    setRecipeDetails(recipeInstructionArray);
+    setRecipeDetails(viewRecipeData);
+    setInstructions(sortedInstructions);
     if (note) {
       setRecipeNotes(noteData);
     }
   };
-
+  console.warn(recipeDetails);
   const savedNotes = async () => {
     const checkRecipes = await getRecipeNotes(user.uid, firebaseKey);
     if (checkRecipes) {
@@ -43,38 +46,39 @@ export default function ViewRecipe() {
   }, [note]);
   return (
     <>
-      <div className="mt-5 d-flex flex-wrap">
+      <div className="mt-5 d-flex flex-wrap recipeBorder">
         <div className="d-flex flex-column">
-          <img src={recipeDetails.image} alt={recipeDetails.name} style={{ width: '300px' }} />
+          <img className="recipeImage" src={recipeDetails.image} alt={recipeDetails.name} style={{ width: '350px', height: '450px' }} />
         </div>
-        <div className="text-white ms-5 details">
-          {recipeDetails.uid === user.uid
+        <div className="text-white viewRecipe ms-5 details">
+
+          <h1 className="viewRecipeTitle">{recipeDetails.name}</h1>
+          <p className="card-text bold">Author: {recipeDetails.author}</p>
+          <p className="card-text bold"><span className="seasonDish"> Seasonal Dish:</span> {recipeDetails.season}</p>
+          <p className="card-text bold ingredientsTwo">Ingredients: {recipeDetails.ingredients}</p>
+          <p className="card-text bold"><span className="description"> Description:</span> {recipeDetails.description}</p>
+          <p className="card-text bold">Type: {recipeDetails.type} {recipeDetails.uid === user.uid
             ? (
               <div>
                 <Link href={`/recipe/edit/${recipeDetails.firebaseKey}`} passHref>
-                  <FontAwesomeIcon icon={faPenToSquare} size="xl" alt="edit" style={{ color: '#eba62d' }} />
+                  <FontAwesomeIcon className="recipeType" icon={faPenToSquare} size="xl" alt="edit" style={{ color: '#e7b913' }} />
                 </Link>
               </div>
             ) : ''}
-
-          <h1>{recipeDetails.name}</h1>
-          <p className="card-text bold">Author: {recipeDetails.author}</p>
-          <p className="card-text bold">Seasonal Dish: {recipeDetails.season}</p>
-          <p className="card-text bold">Ingredients: {recipeDetails.ingredients}</p>
-          <p className="card-text bold">Description: {recipeDetails.description}</p>
-          <p className="card-text bold">Type: {recipeDetails.type}</p>
+          </p>
         </div>
+
       </div>
 
-      <div>{recipeDetails.instructions?.map((instruction) => (
+      <div>{instructions?.map((instruction) => (
         <InstructionCard key={instruction.firebaseKey} instructionObj={instruction} onUpdate={getRDetails} />
       ))}
       </div>
       {recipeDetails.uid === user.uid
         ? (
           <div>
-            <div>
-              <Link passHref href={`/instruction/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" size="sm" style={{ fontSize: '22px' }} variant="outline-secondary">+</Button>
+            <div className="recipeBorder">
+              <Link passHref href={`/instruction/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" size="sm" style={{ fontSize: '12px' }} variant="outline-secondary">Add</Button>
               </Link>
             </div>
           </div>
@@ -87,7 +91,7 @@ export default function ViewRecipe() {
 
       {note ? (
         <div>
-          <Link passHref href={`/note/add/${recipeDetails.firebaseKey}`}><Button className="editBtn m-2" variant="outline-success">Create your note!</Button>
+          <Link passHref href={`/note/add/${recipeDetails.firebaseKey}`}><Button className="listBtn editBtn m-2">ADD A NOTE!</Button>
           </Link>
         </div>
       ) : ''}

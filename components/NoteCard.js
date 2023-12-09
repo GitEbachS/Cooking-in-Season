@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { faTrashCan, faPenToSquare, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faPen, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
@@ -15,16 +15,16 @@ function NoteCard({ noteObj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '18rem', margin: '10px' }}>
+    <Card className="noteCard" style={{ width: '16rem', margin: '25px' }}>
       <Card.Body>
-        <Card.Title>Note</Card.Title>
-        <p className="card-text bold">Posted: {noteObj.createdAt}</p>
-        <p className="card-text bold">Favorite recipe: {noteObj.favorite ? <FontAwesomeIcon icon={faHeart} style={{ color: '#e222b9' }} /> : ''}</p>
-        <p className="card-text bold">Description: {noteObj.description}</p>
+        <Card.Title className="noteTitle">Note</Card.Title>
+        <p className="card-text bold notePosted">Posted: {noteObj.createdAt}</p>
+        <p className="card-text bold noteFavorite">Favorite recipe: {noteObj.favorite ? <FontAwesomeIcon icon={faHeart} style={{ color: '#f07ab3' }} /> : ''}</p>
+        <p className="card-text bold noteDescription">Description: {noteObj.description}</p>
         <Link href={`/note/edit/${noteObj.firebaseKey}`} passHref>
-          <FontAwesomeIcon icon={faPenToSquare} size="lg" alt="edit" style={{ color: '#eba62d' }} />
+          <FontAwesomeIcon className="noteEdit" icon={faPen} alt="edit" style={{ color: '#eba62d' }} />
         </Link>
-        <FontAwesomeIcon onClick={deleteThisNote} icon={faTrashCan} size="lg" style={{ color: '#5a9ce2' }} />
+        <FontAwesomeIcon onClick={deleteThisNote} icon={faTrashCan} style={{ color: '#5a9ce2' }} />
       </Card.Body>
     </Card>
   );
