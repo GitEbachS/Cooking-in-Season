@@ -87,9 +87,12 @@ background-color: rgb(245, 239, 234);
 }
 /* Recipe Card */
 .recCard{
-max-width: 500px;
-min-height: 430px;
+max-width: 600px;
+max-height: 800px;
 margin-bottom: 50px;
+display: flex;
+flex-direction: column;
+justify-content:space-center;
 }
 .description{
   background-color: #A5D4CB;
@@ -105,6 +108,11 @@ margin-bottom: 50px;
   font-style: italic;
   font-size: 14px;
 }
+.scroll{
+ height: 120px;
+ overflow: scroll;
+ overflow-x: hidden;
+}
 .seasonDish{
   color: #433E3E;
   background-color: rgb(236, 200, 206);
@@ -113,13 +121,18 @@ margin-bottom: 50px;
   color: #587570;
   font-size: 30px;
 }
+.card {
+  background-color: rgb(243, 240, 232);
+  margin-bottom: 50px;
+  height: 600px;
+}
+.rowHeight {
+  height: 600px;
+}
 .imgBackground{
   background-color: rgb(226, 205, 161);
   margin-left: 12px;
-  min-height: 430px;
-}
-.card {
-  background-color: rgb(243, 240, 232);
+  height: 100%;
 }
 .card Img{
   object-fit: cover;
@@ -263,9 +276,6 @@ background-color: #A5D4CB;
 }
 .recipeImage{
   border: 2px solid rgb(151, 149, 149);
-}
-.instructionLine{
-
 }
 .white{
  margin: 2px;
