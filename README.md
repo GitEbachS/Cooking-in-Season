@@ -1,61 +1,66 @@
-# React/Next.js Template
+# COOKING IN SEASON
 
-[See Live Demo of this Template](https://drt-next-js-template.netlify.app/)
+An app that helps the user to create new recipes and organize recipes of their choosing. The develper can save specific recipes that other developers created and organize each recipe by a certain season. They will have the ability to add their own personal notes for each recipe, and they can save the recipe to a 'Meal-Rotation-List'.
 
-## Topics
-- [Get Started](#get-started)
-- [Starting the Project](#starting-the-project)
-- [Deploying on Netlify](#deploying-on-netlify)
-___
-## Getting Started
-### Use Template
-#### 1. To get started, click the GREEN "Use this Template" button at the top of the repo
-<img width="915" alt="Screen Shot 2022-07-06 at 12 54 01 PM" src="https://user-images.githubusercontent.com/29741570/177612998-4aac9237-5a1e-4f13-8ae0-468587521564.png">
+This application is necessary to motivate users to get out of their basic-routine style of cooking and get into the spirit of cooking with seasonal options! Cooking dishes that help amplify the spirit of a certain season for the User is fun, creative, and a great way to make seasonal memories. The primary user of the application will be 'recipe-organizers'; the secondary user will be recipe developers. The final type of user will be those who would like to use the app assist with their meal-rotation schedule.
 
-#### 2. Make sure YOUR github account is selected in the dropdown and name your project
-<img width="763" alt="Screen Shot 2022-07-06 at 12 54 48 PM" src="https://user-images.githubusercontent.com/29741570/177613126-dd38f678-7553-4f27-8a4a-75680f14d71e.png">
+## Get Started 
+First, clone this repo. Pick your favorite text editor. In your terminal, enter the following:
 
-#### 3. Clone your new repo to your local machine
-#### 4. Go to the **NEXT** section
+```
+npm run dev
+```
+This will stand the live server. Authenticate with your email - organizing or creating your recipe awaits!
 
-## Starting the Project
-1. Create a Firebase project and set up authentication. Use [these videos](https://vimeo.com/showcase/codetracker-firebase) as a refresher if needed.
-1. Create a `.env` file at the root of the project
-1. Copy/Paste the contents of the `.env.sample` file to your newly created `.env` file.
-1. Copy over all of your Firebase values into the `.env` file.
-1. Open the `package.json` file and change the `name` property to the name of your application, and `author` to  your name.
-1. From your command line, be in the root directory and run `npm install` OR `npm i` for short.
-1. Next, run `npm run prepare`. This command sets up husky to track eslint errors on commit that will make your deploy fail on Netlify.
-1. To start your application, run `npm run dev`. THIS IS THE COMMAND YOU WILL USE TO RUN YOUR DEVELOPMENT SERVER FROM NOW ON.
-1. Open [http://localhost:3000](http://localhost:3000) with your browser.
+## About the User 
+The user is one or each of the following:
+- one who is interested uploading new recipes to share with other people. Only THEY can edit, delete, or update the recipes that they upload.
+- one who would like to browse the recipes that others have posted and save certain interesting recipes to their personal list. In this private recipe list, they can view their recipes by Fall, Winter, Summer, or Spring. They can choose to upload their own personal notes on ANY recipe in the app. Only the user can view, edit, delete, and update their personal notes.
+- one who would like to use the Meal-Rotation to organize their recipes into a maximum of 8 weeks. They can only view the recipe from each of those days.
 
-### If you see this, you are set to go!
-<img width="450" alt="Screen Shot 2022-07-06 at 1 07 27 PM" src="https://user-images.githubusercontent.com/29741570/177615077-9b6a75bc-0260-4d29-bb88-bd95a3140687.png">
+Ideally, users will authenticate through FireBase Auth, and utilize the Firebase database system to create/edit/update/view: recipes, personal saved recipes, notes, meal rotation schedule. 
+
+## Features <!-- List your app features using bullets! Do NOT use a paragraph. No one will read that! -->
+- A CRUD application featuring persistent storage within a Firebase storage database. 
+- Authenticated users can log in and CREATE: recipes and the recipe instructions to share, personal recipe listing, notes, and a meal rotation day with a recipe added to it.
+  
+- Authenticated users can READ: created recipes (with filters: meals, desserts, occasions), personal recipes {with filters: Fall, Winter, Summer, Spring), recipe instructions, recipe notes, meal rotation days that links to the recipe instructions.
+  
+- Authenticated users can UPDATE the recipes that they uploaded along with the recipes instructions, notes, meal rotation days. 
+- Authenticated users (AUs) can DELETE: the recipes and recipe instructions they uploaded, notes, a meal rotation day.  
+
+## LOOMS OF COOKING IN SEASON
+*Click below to see COOKING IN SEASON in action!*
+https://www.loom.com/share/cea077615fbd41a4bec99f1d4cf8cdf6?sid=02e50750-d4d8-4f52-bf09-67b158a3f278
+
+## Relevant Links <!-- Link to all the things that are required outside of the ones that have their own section -->
+- [wireframe](#https://www.canva.com/design/DAFzciiQ-To/dVIyKj-gkqD_hjU_dSmZmA/edit?utm_content=DAFzciiQ-To&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- [Project Board](#https://github.com/users/GitEbachS/projects/4)
+- [ERD? Sounds good to me!]![image](https://github.com/GitEbachS/Cooking-in-Season/assets/119310701/31a75908-657f-438b-ae8a-16b0838f4d0c)
+)
 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Code Snippet <!-- OPTIONAL, but doesn't hurt -->
 
-**NOTES:** 
-- If you see the following error, you did not follow all the setup steps correctly and failed to add your Firebase creds. Go back and do that NOW.
+```
+![image](https://github.com/GitEbachS/Cooking-in-Season/assets/119310701/6ad9f5a7-8786-4631-9900-a518194cf6d2)
 
-<img width="1043" alt="Screen Shot 2022-07-06 at 11 18 45 AM" src="https://user-images.githubusercontent.com/29741570/177612501-c2628f18-4bbd-4de9-aae6-27ffba1172d6.png">
 
-### Deploying on Netlify
-Netlify will automatically detect your project and prepopulate the settings, but should something go wrong and it does not, here are the commands:
+```
 
-- Build Command: `npm run build`
-- Publish directory: `.next`
 
-#### Additional Steps to Take on Netlify
-- Add Environmental Variables
-    - Any Enviromental variables you are using in your `.env` file should be added to Netlify. 
-        - Go to Site settings > Build & deploy > Environment > Environment variables and the keys and values there.
+## Project Screenshots <!-- These can be inside of your project. Look at the repos from class and see how the images are included in the readme -->
+![image](https://github.com/GitEbachS/Cooking-in-Season/assets/119310701/b310959e-76c4-457f-ac79-a0b33e9e6b01)
+![image](https://github.com/GitEbachS/Cooking-in-Season/assets/119310701/8fe0c518-bd95-4f6e-824c-da14a691c4a5)
+![image](https://github.com/GitEbachS/Cooking-in-Season/assets/119310701/e8f55b72-967d-4c7b-ad8a-36e941619d60)
+![image](https://github.com/GitEbachS/Cooking-in-Season/assets/119310701/fd014a85-6d30-472d-a823-055f0a28983a)
+![image](https://github.com/GitEbachS/Cooking-in-Season/assets/119310701/7c30400e-bbf1-47f1-a0d7-8003660a8a1a)
 
-- Update Firebase URL Settings
-    - In Firebase under Authentication select sign in methods, scroll to Authorized domains. Add your Netlify URL.
-        
-## Learn More about Next.js
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+
+
+
+## Contributors
+- [Shari Ebach](https://github.com/GitEbachS)
+
