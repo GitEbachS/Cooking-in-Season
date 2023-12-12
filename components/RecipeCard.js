@@ -58,10 +58,10 @@ function RecipeCard({ recipeObj, onUpdate }) {
 
   return (
     <Container className="recipeCard">
-      <Card className="recCard">
+      <Card>
 
-        <Row>
-          <Col className="imgBackground" xs={4}>
+        <Row className="rowHeight">
+          <Col className="imgBackground recCard" xs={4}>
             {onList ? <p className="list">LIST  <FontAwesomeIcon icon={faClipboardList} size="lg" style={{ color: '#587570' }} /></p> : <Button type="button" onClick={addToList} size="sm" className="listBtn" variant="outline-success">ADD TO LIST</Button>}
             <Card.Img variant="top" src={recipeObj.image} alt={recipeObj.name} style={{ height: '200px' }} />
             {onList ? <Button className="removeBtn" type="button" onClick={removeFromList} update="onUpdate" size="sm">Remove from list</Button> : ''}
@@ -71,8 +71,8 @@ function RecipeCard({ recipeObj, onUpdate }) {
             <Card.Title className="recipeTitle">{recipeObj.name}</Card.Title>
             <p className="card-text bold">By: <span className="author">{recipeObj.author}</span></p>
             <p className="card-text bold"><span className="seasonDish">Seasonal Dish:</span> {recipeObj.season}</p>
-            <p className="card-text bold"><span className="ingredients">Ingredients: {recipeObj.ingredients}</span></p>
-            <p className="card-text bold"><span className="description">Description:</span> {recipeObj.description}</p>
+            <p className="card-text bold scroll"><span className="ingredients">Ingredients: {recipeObj.ingredients}</span></p>
+            <p className="card-text bold maxDescription"><span className="description">Description:</span> {recipeObj.description}</p>
             <p className="card-text bold"><span className="type">Type: {recipeObj.type}</span></p>
 
             <div className="wrapper">
