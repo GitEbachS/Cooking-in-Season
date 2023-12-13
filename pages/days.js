@@ -7,7 +7,6 @@ import { getDays } from '../api/dayData';
 
 export default function ShowDays() {
   const [weeks, setWeeks] = useState([]);
-  // const [days, setDays] = useState([]);
   const { user } = useAuth();
 
   const getAllTheDays = async () => {
@@ -23,14 +22,13 @@ export default function ShowDays() {
     getDays(user.uid).then(((array) => {
       const filteredDaysByWeeks = array.sort((a, b) => map[a.day] - map[b.day]);
       const filteredWeeks = filteredDaysByWeeks.sort((a, b) => a.week - b.week);
-      // setDays(filteredDaysByWeeks);
       setWeeks(filteredWeeks);
     }));
   };
 
   useEffect(() => {
     getAllTheDays();
-  }, [user, weeks]);
+  }, [user]);
 
   return (
     <>

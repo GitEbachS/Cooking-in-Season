@@ -63,11 +63,11 @@ function RecipeCard({ recipeObj, onUpdate }) {
         <Row className="rowHeight">
           <Col className="imgBackground recCard" xs={4}>
             {onList ? <p className="list">LIST  <FontAwesomeIcon icon={faClipboardList} size="lg" style={{ color: '#587570' }} /></p> : <Button type="button" onClick={addToList} size="sm" className="listBtn" variant="outline-success">ADD TO LIST</Button>}
-            <Card.Img variant="top" src={recipeObj.image} alt={recipeObj.name} style={{ height: '200px' }} />
+            <Card.Img className="recipeImg" variant="top" src={recipeObj.image} alt={recipeObj.name} />
             {onList ? <Button className="removeBtn" type="button" onClick={removeFromList} update="onUpdate" size="sm">Remove from list</Button> : ''}
           </Col>
 
-          <Col xs={6}>
+          <Col className="parent" xs={6}>
             <Card.Title className="recipeTitle">{recipeObj.name}</Card.Title>
             <p className="card-text bold">By: <span className="author">{recipeObj.author}</span></p>
             <p className="card-text bold"><span className="seasonDish">Seasonal Dish:</span> {recipeObj.season}</p>

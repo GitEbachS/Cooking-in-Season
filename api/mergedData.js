@@ -60,23 +60,16 @@ const deleteMyRecipeNotes = (recipeId, uid) => new Promise((resolve, reject) => 
   }).catch((error) => reject(error));
 });
 
-const viewDayDetails = (firebaseKey) => new Promise((resolve, reject) => {
-  getSingleDay(firebaseKey)
+const dayDetails = (dayId) => new Promise((resolve, reject) => {
+  getSingleDay(dayId)
     .then((dayObject) => {
-      getSingleRecipe(dayObject?.recipeId)
+      getSingleRecipe(dayObject.recipeId)
         .then((recipeObject) => {
           resolve({ recipeObject, ...dayObject });
         });
     }).catch((error) => reject(error));
 });
 
-const getDayDetails = async (dayId) => {
-  const singleDay = await getSingleDay(dayId);
-
-  const getSingleRecipes = await singleDay.filter((day) => getSingleRecipe(day.recipeId));
-
-  return getSingleRecipes;
-};
 export {
-  viewRecipeDetails, deleteMyRecipeNotes, getMyRecipesDetails, deleteMyRecipe, deleteRecipeNotes, getDayDetails, deleteRecipeInstructions, viewDayDetails, viewDayRecipeDetails,
+  viewRecipeDetails, deleteMyRecipeNotes, getMyRecipesDetails, deleteMyRecipe, deleteRecipeNotes, dayDetails, deleteRecipeInstructions, viewDayRecipeDetails,
 };

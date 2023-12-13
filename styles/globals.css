@@ -93,10 +93,20 @@ margin-bottom: 50px;
 display: flex;
 flex-direction: column;
 justify-content:space-center;
+margin-right: 0px;
+}
+.recipeImg{
+  height: 200px;
+  width: 200px;
 }
 .description{
   background-color: #A5D4CB;
   color: #433E3E;
+  font-size: 10px;
+}
+.maxDescription{
+  font-size: 10px;
+
 }
 .author{
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
@@ -112,6 +122,7 @@ justify-content:space-center;
  height: 120px;
  overflow: scroll;
  overflow-x: hidden;
+ margin-left: 40px;
 }
 .seasonDish{
   color: #433E3E;
@@ -124,7 +135,7 @@ justify-content:space-center;
 .card {
   background-color: rgb(243, 240, 232);
   margin-bottom: 50px;
-  height: 600px;
+  height: 480px;
 }
 .rowHeight {
   height: 600px;
@@ -200,10 +211,10 @@ justify-content:space-center;
   position: absolute;
   left: 10px;
   bottom: 20px;
-  background-color: #7caaa2;
+  background-color: #777373;
   border-radius: 1px;
   border: none;
-  color: #433E3E;
+  color: #91c5bc;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
 }
@@ -239,6 +250,7 @@ justify-content:space-center;
 }
 .dayCard{
 background-color: whitesmoke; 
+height: 275px;
 border: 1px solid rgb(32, 31, 31);
 }
 .seasonFilterBtn{
@@ -276,6 +288,9 @@ background-color: #A5D4CB;
 }
 .recipeImage{
   border: 2px solid rgb(151, 149, 149);
+  width: 600px;
+  height: 500px;
+  object-fit: cover;
 }
 .white{
  margin: 2px;
@@ -295,6 +310,7 @@ background-color: #A5D4CB;
 /* Note Card */
 .noteCard{
 border: 4px solid rgb(236, 200, 206);
+height: 250px;
 }
 .noteTitle{
 font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
