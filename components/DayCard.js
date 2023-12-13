@@ -6,18 +6,18 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { deleteSingleDay } from '../api/dayData';
-import { viewDayDetails } from '../api/mergedData';
+import { dayDetails } from '../api/mergedData';
 
 function DayCard({ dayObj, onUpdate }) {
-  const [recipe, setRecipe] = useState({});
+  const [dayInfo, setDayInfo] = useState({});
   const deleteThisDay = () => {
     if (window.confirm(`Delete ${dayObj.day}?`)) {
       deleteSingleDay(dayObj.firebaseKey).then(() => onUpdate());
     }
   };
   useEffect(() => {
-    viewDayDetails(dayObj.firebaseKey).then(setRecipe);
-  }, [dayObj, recipe]);
+    dayDetails(dayObj.firebaseKey).then(setDayInfo);
+  }, [dayObj, dayInfo]);
 
   // const getDayRecipeInfo = () => {
   //   getDayDetails(dayObj.firebaseKey).then(setEachRecipe);
@@ -30,7 +30,7 @@ function DayCard({ dayObj, onUpdate }) {
       <Card.Body>
         <Card.Title className="dayName">{dayObj.day}</Card.Title>
         <p className="author">Week: {dayObj.week}</p>
-        <h3 className="recipeTitle">{recipe.recipeObject?.name}</h3>
+        <h3 className="recipeTitle">{dayInfo.recipeObject?.name}</h3>
 
         <Link href={`/recipe/${dayObj.recipeId}`} passHref>
           <Button variant="outline-secondary" className="viewBtn m-2">Jump to Recipe</Button>

@@ -48,7 +48,7 @@ export default function ViewRecipe() {
     <>
       <div className="mt-5 d-flex flex-wrap recipeBorder">
         <div className="d-flex flex-column">
-          <img className="recipeImage" src={recipeDetails.image} alt={recipeDetails.name} style={{ width: '350px', height: '450px' }} />
+          <img className="recipeImage" src={recipeDetails.image} alt={recipeDetails.name} />
         </div>
         <div className="text-white viewRecipe ms-5 details">
 
