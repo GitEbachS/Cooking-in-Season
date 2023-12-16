@@ -21,8 +21,7 @@ function RecipeCard({ recipeObj, onUpdate }) {
   const removeFromList = async () => {
     const personalRecipes = await getMyRecipes(user.uid);
     const filtered = await personalRecipes.filter((item) => item.recipeId === recipeObj.firebaseKey);
-    setOnList(false);
-    deleteMySingleRecipe(filtered[0].firebaseKey);
+    deleteMySingleRecipe(filtered[0].firebaseKey).then(setOnList(false));
   };
 
   const deleteThisRecipe = () => {
@@ -54,7 +53,7 @@ function RecipeCard({ recipeObj, onUpdate }) {
 
   useEffect(() => {
     list();
-  }, [recipeObj, onList]);
+  }, [recipeObj, user]);
 
   return (
     <Container className="recipeCard">
