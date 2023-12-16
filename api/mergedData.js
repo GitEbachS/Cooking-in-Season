@@ -51,19 +51,17 @@ const getMyRecipesDetails = (uid) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-const deleteMyRecipeNotes = (recipeId, uid) => new Promise((resolve, reject) => {
-  getRecipeNotes(recipeId, uid).then((noteArray) => {
+const deleteMyRecipeNotes = (uid, recipeId) => new Promise((resolve, reject) => {
+  getRecipeNotes(uid, recipeId).then((noteArray) => {
     const deleteSingleNotePromises = noteArray.map((note) => deleteSingleNote(note.firebaseKey));
-    Promise.all(deleteSingleNotePromises).then(() => {
-      deleteMySingleRecipe(recipeId).then(resolve);
-    });
+    Promise.all(deleteSingleNotePromises).then(resolve);
   }).catch((error) => reject(error));
 });
 
 const dayDetails = (dayId) => new Promise((resolve, reject) => {
   getSingleDay(dayId)
     .then((dayObject) => {
-      getSingleRecipe(dayObject.recipeId)
+      getSingleRecipe(dayObject?.recipeId)
         .then((recipeObject) => {
           resolve({ recipeObject, ...dayObject });
         });

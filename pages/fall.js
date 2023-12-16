@@ -15,7 +15,7 @@ function FilteredFallRecipes() {
   const [recipes, setRecipes] = useState([]);
   const { user } = useAuth();
 
-  const getFRecipes = async () => {
+  const getFRecipes = () => {
     getMyRecipesDetails(user.uid).then(setRecipes);
     const filtered = recipes.filter((item) => item.season === 'Fall');
     setFallRecipes(filtered);

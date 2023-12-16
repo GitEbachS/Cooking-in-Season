@@ -33,7 +33,6 @@ export default function ViewRecipe() {
       setRecipeNotes(noteData);
     }
   };
-  console.warn(recipeDetails);
   const savedNotes = async () => {
     const checkRecipes = await getRecipeNotes(user.uid, firebaseKey);
     if (checkRecipes) {
@@ -43,7 +42,7 @@ export default function ViewRecipe() {
   useEffect(() => {
     savedNotes();
     getRDetails();
-  }, [note]);
+  }, [recipeDetails, note, user]);
   return (
     <>
       <div className="mt-5 d-flex flex-wrap recipeBorder">
