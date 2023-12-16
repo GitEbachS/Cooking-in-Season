@@ -19,22 +19,19 @@ function DayCard({ dayObj, onUpdate }) {
     dayDetails(dayObj.firebaseKey).then(setDayInfo);
   }, [dayObj, dayInfo]);
 
-  // const getDayRecipeInfo = () => {
-  //   getDayDetails(dayObj.firebaseKey).then(setEachRecipe);
-  // };
-  // useEffect(() => {
-  //   getDayRecipeInfo();
-  // }, [eachRecipe, dayObj.recipeId]);
   return (
     <Card className="dayCard" style={{ width: '16rem', margin: '10px' }}>
-      <Card.Body>
+      <Card.Body className="dayCardBody">
         <Card.Title className="dayName">{dayObj.day}</Card.Title>
         <p className="author">Week: {dayObj.week}</p>
         <h3 className="recipeTitle">{dayInfo.recipeObject?.name}</h3>
+        <div><Card.Img variant="" style={{ width: '3.5rem', height: '3.5rem', margin: '5px' }} src={dayInfo.recipeObject?.image} alt={dayInfo.recipeObject?.name} />
 
-        <Link href={`/recipe/${dayObj.recipeId}`} passHref>
-          <Button variant="outline-secondary" className="viewBtn m-2">Jump to Recipe</Button>
-        </Link>
+          <Link href={`/recipe/${dayObj.recipeId}`} passHref>
+            <Button variant="outline-secondary" className="viewBtn m-2">Jump to Recipe</Button>
+          </Link>
+        </div>
+
         <div className="cardBtnsRight">
           <div className="cardBtns">
             <Link href={`/day/edit/${dayObj.firebaseKey}`} passHref>

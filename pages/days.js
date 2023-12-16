@@ -11,13 +11,13 @@ export default function ShowDays() {
 
   const getAllTheDays = async () => {
     const map = {
-      Monday: 1,
-      Tuesday: 2,
-      Wednesday: 3,
-      Thursday: 4,
-      Friday: 5,
-      Saturday: 6,
-      Sunday: 7,
+      Sunday: 1,
+      Monday: 2,
+      Tuesday: 3,
+      Wednesday: 4,
+      Thursday: 5,
+      Friday: 6,
+      Saturday: 7,
     };
     getDays(user.uid).then(((array) => {
       const filteredDaysByWeeks = array.sort((a, b) => map[a.day] - map[b.day]);
@@ -34,8 +34,10 @@ export default function ShowDays() {
     <>
       <div className="text-center my-4">
         <Link href="/day/new" passHref>
-          <Button className="rotationBtn">Add another day to your rotation!</Button>
+          <Button className="addDayBtn">Add another day to your rotation!</Button>
         </Link>
+        <h2 className="indexTitle">Meal Rotation</h2>
+        <p className="weekNumber">8 Weeks</p>
         <div className="rotationFlex">
           {weeks?.map((day) => (
             <DayCard key={day.firebaseKey} dayObj={day} onUpdate={getAllTheDays} />
