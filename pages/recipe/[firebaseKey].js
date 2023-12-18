@@ -42,6 +42,7 @@ export default function ViewRecipe() {
   useEffect(() => {
     savedNotes();
     getRDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipeDetails, note, user]);
   return (
     <>
