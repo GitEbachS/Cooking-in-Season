@@ -33,14 +33,6 @@ function DayForm({ dayObj }) {
     }));
   };
 
-  // const handleChangeTwo = (e) => {
-  //   const { name, value } = e.target;
-  //   setRecipeInput((prevState) => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }));
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (dayObj.firebaseKey) {
@@ -125,7 +117,7 @@ function DayForm({ dayObj }) {
         </FloatingLabel>
       ) : ''}
       {/* SUBMIT BUTTON  */}
-      <Button className="createBtn" type="submit">{dayObj.firebaseKey ? 'Update' : 'Create'} Recipe</Button>
+      <Button className="createBtn" type="submit">{dayObj.firebaseKey ? 'Update' : 'Add to'} Rotation</Button>
     </Form>
   );
 }
