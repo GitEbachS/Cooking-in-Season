@@ -23,6 +23,7 @@ function FilteredFallRecipes() {
 
   useEffect(() => {
     getFRecipes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, recipes]);
 
   return (
