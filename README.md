@@ -31,7 +31,7 @@ Ideally, users will authenticate through FireBase Auth, and utilize the Firebase
 
 ## LOOMS OF COOKING IN SEASON
 *Click below to see COOKING IN SEASON in action!*
-https://www.loom.com/share/cea077615fbd41a4bec99f1d4cf8cdf6?sid=02e50750-d4d8-4f52-bf09-67b158a3f278
+https://www.loom.com/share/5a0cc9da513e4aaaba44410d106ba842?sid=5b5fe856-0429-4e5a-8f11-62ec182cb749
 
 ## Relevant Links <!-- Link to all the things that are required outside of the ones that have their own section -->
 - [wireframe](#https://www.canva.com/design/DAFzciiQ-To/dVIyKj-gkqD_hjU_dSmZmA/edit?utm_content=DAFzciiQ-To&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
